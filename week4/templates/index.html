@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Estimation in New York</title>
+    <style>
+        body {
+            background-image: url('{{ url_for("static", filename="55443.jpg") }}'); 
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.8); 
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1 style="text-align: center; color: #333;">House Price Estimation in New York</h1>
+        <form id="prediction-form" style="text-align: center;">
+            <label for="property-type">Type of Property:</label>
+            <select id="property-type" name="property_type">                
+            <option value="Condo for sale">Condo for sale</option>
+            <option value="House for sale">House for sale</option>
+            <option value="Townhouse for sale">Townhouse for sale</option>
+            <option value="Co-op for sale">Co-op for sale</option>
+            <option value="Multi-family home for sale">Multi-family home for sale</option>
+            <option value="For sale">For sale</option>
+            <option value="Contingent">Contingent</option>
+            <option value="Land for sale">Land for sale</option>
+            <option value="Foreclosure">Foreclosure</option>
+            <option value="Pending">Pending</option>
+            <option value="Coming Soon">Coming Soon</option>
+            <option value="Mobile house for sale">Mobile house for sale</option>
+            <option value="Condop for sale">Condop for sale</option>
+        </select>
+        <br><br>
+        <label for="neighborhood">Neighborhood:</label>
+        <select id="neighborhood" name="neighborhood">
+            <option value="New York">New York</option>
+            <option value="Staten Island">Staten Island</option>
+            <option value="Manhattan">Manhattan</option>
+            <option value="Brooklyn">Brooklyn</option>
+            <option value="Bronx">Bronx</option>
+            <option value="Jackson Heights">Jackson Heights</option>
+            <option value="Elmhurst">Elmhurst</option>
+            <option value="Woodside">Woodside</option>
+            <option value="Rego Park">Rego Park</option>
+            <option value="Forest Hills">Forest Hills</option>
+            <option value="Briarwood">Briarwood</option>
+            <option value="Queens">Queens</option>
+            <option value="Flushing">Flushing</option>
+            <option value="Woodhaven">Woodhaven</option>
+            <option value="Jamaica">Jamaica</option>
+            <option value="Richmond Hill South">Richmond Hill South</option>
+            <option value="Whitestone">Whitestone</option>
+            <option value="Ridgewood">Ridgewood</option>
+            <option value="Rosedale">Rosedale</option>
+            <option value="Ozone Park">Ozone Park</option>
+            <option value="Springfield Gardens">Springfield Gardens</option>
+            <option value="Far Rockaway">Far Rockaway</option>
+            <option value="Bellerose">Bellerose</option>
+            <option value="Bayside">Bayside</option>
+            <option value="Astoria">Astoria</option>
+            <option value="Floral Park">Floral Park</option>
+            <option value="Fresh Meadows">Fresh Meadows</option>
+            <option value="Howard Beach">Howard Beach</option>
+            <option value="Cambria Heights">Cambria Heights</option>
+            <option value="Rockaway Park">Rockaway Park</option>
+            <option value="East Elmhurst">East Elmhurst</option>
+            <option value="Little Neck">Little Neck</option>
+            <option value="Long Island City">Long Island City</option>
+            <option value="Corona">Corona</option>
+            <option value="Kew Gardens">Kew Gardens</option>
+            <option value="Brownville">Brownville</option>
+            <option value="Brooklyn Heights">Brooklyn Heights</option>
+            <option value="Maspeth">Maspeth</option>
+            <option value="Queens Village">Queens Village</option>
+            <option value="Richmond Hill">Richmond Hill</option>
+            <option value="Middle Village">Middle Village</option>
+            <option value="Saint Albans">Saint Albans</option>
+            <option value="Kensington">Kensington</option>
+            <option value="South Ozone Park">South Ozone Park</option>
+            <option value="Canarsie">Canarsie</option>
+            <option value="College Point">College Point</option>
+            <option value="Bedford Stuyvesant">Bedford Stuyvesant</option>
+            <option value="Hollis">Hollis</option>
+            <option value="Malba">Malba</option>
+            <option value="Glen Oaks">Glen Oaks</option>
+            <option value="Douglaston">Douglaston</option>
+            <option value="Sunnyside">Sunnyside</option>
+            <option value="Arverne">Arverne</option>
+            <option value="Glendale">Glendale</option>
+            <option value="New Hyde Park">New Hyde Park</option>
+            <option value="Crown Heights">Crown Heights</option>
+            <option value="Old Mill Basin">Old Mill Basin</option>
+            <option value="Beechhurst">Beechhurst</option>
+            <option value="Roosevelt Island">Roosevelt Island</option>
+            <option value="Kew Gardens Hills">Kew Gardens Hills</option>
+            <option value="Stuyvesant Heights">Stuyvesant Heights</option>
+            <option value="Belle Harbor">Belle Harbor</option>
+            <option value="East Flatbush">East Flatbush</option>
+            <option value="Kew Garden Hills">Kew Garden Hills</option>
+            <option value="Ditmas Park">Ditmas Park</option>
+            <option value="Brighton Beach">Brighton Beach</option>
+            <option value="Prospect Lefferts Gardens">Prospect Lefferts Gardens</option>
+        </select>
+        <br><br>
+        <label for="property-sqft">Property Sqft:</label>
+            <input type="number" id="property-sqft" name="property_sqft" min="0">
+            <br><br>
+            <label for="bedrooms">Bedrooms:</label>
+            <input type="number" id="bedrooms" name="bedrooms" min="0">
+            <br><br>
+            <label for="baths">Baths:</label>
+            <input type="number" id="baths" name="baths" min="0">
+            <br><br>
+            <button type="submit">Compute Estimated Price</button>
+        </form>
+        <!-- Display prediction result here -->
+        <div id="prediction-result"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('prediction-form');
+        
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            // Get the form data
+            const propertyType = document.getElementById('property-type').value;
+            const neighborhood = document.getElementById('neighborhood').value;
+            const propertySqft = document.getElementById('property-sqft').value;
+            const bedrooms = document.getElementById('bedrooms').value;
+            const baths = document.getElementById('baths').value;
+
+            // Send the data to the server using a POST request
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    property_type: propertyType,
+                    neighborhood: neighborhood,
+                    property_sqft: propertySqft,
+                    bedrooms: bedrooms,
+                    baths: baths
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Display the prediction result
+                document.getElementById('prediction-result').innerHTML = data.prediction_text;
+            });
+        });
+        
+    </script>
+</body>
+</html>
