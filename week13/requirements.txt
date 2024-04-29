@@ -9,5 +9,5 @@ scipy==1.11.4
 scikit-learn==1.2.2
 pandas==1.5.3
 spacy==3.7.4
-./en_core_web_sm-3.0.0.tar.gz
+en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.0.0/en_core_web_sm-3.0.0-py3-none-any.whl
 nltk==3.8.1
